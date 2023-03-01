@@ -1,0 +1,17 @@
+service: animals-api
+
+provider:
+  name: aws
+  runtime: dotnet6
+
+package:
+  artifact: bin/Release/net6.0/Animals.Api.zip
+
+functions:
+  handler:
+    handler: Animals.Api::Animals.Api.LambdaEntryPoint::FunctionHandlerAsync
+    events:
+      - httpApi:
+          method: any
+          path: /{proxy+}
+          cors: true
